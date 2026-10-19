@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>隐私政策 · MESL Cloud机场</title>
+  <style>
+    :root {
+      --rc-bg: #fdfbf7;
+      --rc-panel: #ffffff;
+      --rc-panel-soft: #f4efe6;
+      --rc-graphite: #18181b;
+      --rc-slate: #334155;
+      --rc-muted: #64748b;
+      --rc-orange: #ea580c;
+      --rc-gold: #d97706;
+      --rc-border: #e4dec3;
+      --rc-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--rc-bg); color: var(--rc-graphite); font-family: var(--rc-font); line-height: 1.8; }
+    a { color: var(--rc-orange); text-decoration: none; }
+    .page-header { background: var(--rc-panel); border-bottom: 2px solid var(--rc-graphite); padding: 1.1rem 1.5rem; }
+    .page-header-inner { max-width: 920px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .brand-title { font-weight: 900; font-size: 1.25rem; color: var(--rc-graphite); }
+    .main-stage { max-width: 920px; margin: 3rem auto; padding: 0 1.5rem; }
+    .content-capsule { background: var(--rc-panel); border: 2px solid var(--rc-graphite); border-radius: 20px; padding: 2.8rem; box-shadow: 6px 6px 0px var(--rc-graphite); }
+    h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 1.5rem; border-bottom: 2px solid var(--rc-border); padding-bottom: 0.8rem; }
+    h2 { font-size: 1.35rem; font-weight: 900; margin: 2rem 0 0.8rem; }
+    p { margin-bottom: 1rem; color: var(--rc-slate); }
+    .callout-box { background: #ffedd5; border: 2px solid var(--rc-orange); border-radius: 12px; padding: 1.2rem; margin: 1.5rem 0; font-weight: 700; color: #9a3412; }
+    ul { margin-left: 1.5rem; margin-bottom: 1.2rem; color: var(--rc-slate); }
+    li { margin-bottom: 0.4rem; }
+    .footer-bar { border-top: 2px solid var(--rc-graphite); padding: 2.2rem 1.5rem; text-align: center; background: var(--rc-panel-soft); font-size: 0.85rem; color: var(--rc-muted); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-bottom: 0.8rem; font-weight: 800; }
+    .footer-nav a { color: var(--rc-graphite); }
+    .footer-nav a:hover { color: var(--rc-orange); }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <div class="page-header-inner">
+      <a href="index.html" class="brand-title">MESL CLOUD机场</a>
+      <a href="index.html" style="font-weight:800;">&larr; 返回首页</a>
+    </div>
+  </header>
+
+  <main class="main-stage">
+    <article class="content-capsule">
+      <h1>隐私政策 (Privacy Policy)</h1>
+      <p>
+        MESL Cloud 机场把捍卫每位用户的个人数字隐私和信息安全作为系统的最高准则。本政策向您透明公开我们严格的数据处理规范。
+      </p>
+
+      <div class="callout-box">
+        【绝对无日志誓约】：MESL Cloud 机场坚决奉行“零网络活动日志 (Strict No-Logs Policy)”！我们绝不记录、绝不保存、绝不追踪、绝不出售任何用户的网络浏览轨迹、数据内容或 DNS 请求！
+      </div>
+
+      <h2>一、 物理级杜绝收集的信息</h2>
+      <p>
+        我们的系统基于内存瞬时路由与无状态转发机制设计，从物理架构层面确保不具备记录以下信息的能力：
+      </p>
+      <ul>
+        <li><strong>不收集用户的访问网址与浏览记录</strong>：不保存您访问的任何具体页面、目标服务器或在线活动。</li>
+        <li><strong>不收集用户的传输内容数据</strong>：所有流量在端到端均经过高级密码学加密封装，无留存、无解密。</li>
+        <li><strong>不收集用户的真实物理 IP 地址</strong>：用户建立专线会话时，连接元数据仅在内存短暂驻留，断开即随内存清空而湮灭。</li>
+        <li><strong>不收集任何 DNS 查询历史</strong>：使用全自建私有加密 DNS 递归集群，防止任何外部嗅探行为。</li>
+      </ul>
+
+      <h2>二、 仅保留的必要管理数据</h2>
+      <p>
+        为维护账户订购与基础计费周期，我们仅在数据库中保存以下最小必要信息：
+      </p>
+      <ul>
+        <li>注册电子邮箱地址（用于登录身份验证与重要系统告警通知）。</li>
+        <li>当前周期流量配额与消耗总量（纯统计数值，不与任何具体浏览内容挂钩）。</li>
+        <li>当前在线并发设备数（仅用于防止超出套餐额定设备上限）。</li>
+      </ul>
+
+      <h2>三、 高强度传输加密标准</h2>
+      <p>
+        所有节点骨干通信均采用前沿的高强度加密协议（如 ChaCha20-Poly1305 / AES-256-GCM 与 AEAD），杜绝任何网络中间人攻击。
+      </p>
+    </article>
+  </main>
+
+  <footer class="footer-bar">
+    <div class="footer-nav">
+      <a href="sitemap.html">网站地图</a>
+      <a href="about.html">关于我们</a>
+      <a href="terms.html">服务条款</a>
+      <a href="privacy.html">隐私政策</a>
+    </div>
+    <div>&copy; 2026 MESL Cloud机场 (meslyuncloud.mom). 保留所有权利。</div>
+  </footer>
+</body>
+</html>

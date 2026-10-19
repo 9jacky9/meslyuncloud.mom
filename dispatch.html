@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>时轨观察 · 全时序专线调度与AI智算加速前沿 · MESL Cloud机场</title>
+  <meta name="description" content="MESL Cloud机场「时轨观察」专栏，追踪 PTP 纳秒授时协议、分布式 AI 推理互联、RDMA 零拷贝加速、秒级自愈网络及弱网前向纠错前沿技术。">
+  <style>
+    :root {
+      --rc-bg: #fdfbf7;
+      --rc-panel: #ffffff;
+      --rc-panel-soft: #f4efe6;
+      --rc-graphite: #18181b;
+      --rc-slate: #334155;
+      --rc-muted: #64748b;
+      --rc-orange: #ea580c;
+      --rc-gold: #d97706;
+      --rc-border: #e4dec3;
+      --rc-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--rc-bg); color: var(--rc-graphite); font-family: var(--rc-font); line-height: 1.7; }
+    a, a:visited { color: var(--rc-orange) !important; text-decoration: none; }
+    a:hover { color: #c2410c !important; text-decoration: underline; }
+
+    .retro-capsule-bar {
+      padding: 1.1rem 1.5rem; position: sticky; top: 0; z-index: 100;
+      background: rgba(253, 251, 247, 0.96); border-bottom: 2px solid var(--rc-graphite);
+    }
+    .retro-bar-frame {
+      max-width: 1220px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;
+    }
+    .retro-brand-capsule { display: flex; align-items: center; gap: 0.85rem; }
+    .retro-logo-svg { width: 40px; height: 40px; flex-shrink: 0; }
+    .retro-brand-main { font-size: 1.25rem; font-weight: 900; letter-spacing: 0.06em; color: var(--rc-graphite); line-height: 1.1; }
+    .retro-brand-tagline { font-size: 0.62rem; letter-spacing: 0.18em; color: var(--rc-orange); font-weight: 800; text-transform: uppercase; }
+
+    .retro-links-pill {
+      background: var(--rc-panel-soft); border: 1.5px solid var(--rc-graphite);
+      border-radius: 999px; padding: 0.35rem 1.2rem; display: flex; gap: 1.6rem; font-size: 0.86rem; font-weight: 700;
+    }
+    .retro-dial-btn, .retro-dial-btn:visited {
+      background: var(--rc-orange); color: #fff !important; border: 2px solid var(--rc-graphite);
+      border-radius: 999px; padding: 0.5rem 1.3rem; font-size: 0.84rem; font-weight: 800;
+    }
+    .retro-dial-btn:hover { background: #c2410c; color: #fff !important; text-decoration: none; }
+
+    .main-stage { max-width: 1220px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+    .stage-hero { margin-bottom: 3.5rem; border-bottom: 2px solid var(--rc-graphite); padding-bottom: 2rem; }
+    .radar-tag { display: inline-flex; align-items: center; gap: 0.4rem; background: #fed7aa; border: 1.5px solid var(--rc-orange); border-radius: 999px; padding: 0.25rem 0.8rem; font-size: 0.74rem; font-weight: 800; color: var(--rc-orange); margin-bottom: 1rem; }
+    h1 { font-size: clamp(2.2rem, 3.8vw, 3.2rem); font-weight: 900; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.8rem; }
+    p.lead-desc { font-size: 1.05rem; color: var(--rc-slate); max-width: 760px; line-height: 1.75; }
+
+    .dispatch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+    .dispatch-card {
+      background: var(--rc-panel); border: 2px solid var(--rc-graphite); border-radius: 20px;
+      padding: 2rem 1.8rem; display: flex; flex-direction: column;
+      box-shadow: 4px 4px 0px var(--rc-graphite); transition: all 0.2s ease;
+    }
+    .dispatch-card:hover { transform: translateY(-4px); box-shadow: 8px 8px 0px var(--rc-graphite); }
+    .card-meta-row { display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 800; color: var(--rc-muted); margin-bottom: 0.8rem; }
+    .card-topic-pill { background: #ffedd5; color: var(--rc-orange); padding: 0.15rem 0.5rem; border-radius: 999px; }
+    .card-title-h2 { font-size: 1.22rem; font-weight: 900; color: var(--rc-graphite); line-height: 1.4; margin-bottom: 0.8rem; }
+    .card-title-h2 a { color: var(--rc-graphite) !important; }
+    .card-title-h2 a:hover { color: var(--rc-orange) !important; text-decoration: none; }
+    .card-summary { font-size: 0.88rem; color: var(--rc-slate); line-height: 1.65; margin-bottom: 1.5rem; flex-grow: 1; }
+    .card-action-link { font-size: 0.86rem; font-weight: 900; color: var(--rc-orange); display: inline-flex; align-items: center; gap: 0.3rem; }
+
+    .retro-strict-footer {
+      border-top: 2px solid var(--rc-graphite); background: var(--rc-panel-soft);
+      padding: 2.5rem 1.5rem; text-align: center;
+    }
+    .retro-footer-nav { display: flex; justify-content: center; gap: 2.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+    .retro-footer-nav a { font-size: 0.92rem; font-weight: 800; color: var(--rc-graphite) !important; }
+    .retro-footer-copy { font-size: 0.78rem; color: var(--rc-muted); }
+
+    @media (max-width: 900px) {
+      .retro-capsule-bar { padding: 0.6rem 1rem; }
+      .retro-bar-frame { flex-wrap: wrap; gap: 0.75rem 0.5rem; }
+      .retro-brand-capsule { order: 1; }
+      .retro-dial-btn { order: 2; padding: 0.4rem 0.9rem; font-size: 0.78rem; }
+      .retro-links-pill {
+        order: 3;
+        display: flex;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        gap: 0.6rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 999px;
+        border: 1.5px solid var(--rc-graphite);
+        scrollbar-width: none;
+      }
+      .retro-links-pill::-webkit-scrollbar { display: none; }
+      .retro-links-pill a {
+        padding: 0.3rem 0.65rem;
+        font-size: 0.82rem;
+        flex-shrink: 0;
+      }
+      .dispatch-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="retro-capsule-bar">
+    <div class="retro-bar-frame">
+      <a href="index.html" class="retro-brand-capsule">
+        <svg class="retro-logo-svg" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="48" fill="#18181B" stroke="#EA580C" stroke-width="2"/>
+          <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(-30 50 50)" stroke="#FDFBF7" stroke-width="2.5" stroke-dasharray="8 4"/>
+          <circle cx="50" cy="50" r="16" fill="#EA580C"/>
+          <circle cx="78" cy="34" r="4" fill="#FED7AA"/>
+        </svg>
+        <div class="retro-brand-txt">
+          <span class="retro-brand-main">MESL Cloud机场</span>
+          <span class="retro-brand-tagline">时轨观察 · 智算专刊</span>
+        </div>
+      </a>
+
+      <nav class="retro-links-pill">
+        <a href="index.html#matrix">自愈基座</a>
+        <a href="index.html#streaming">流媒体与AI</a>
+        <a href="index.html#pricing">方案选型</a>
+        <a href="index.html#faq">常见问题</a>
+        <a href="dispatch.html" style="color:var(--rc-orange);">时轨观察</a>
+      </nav>
+
+      <a href="https://ww012.twilightaff.com/#/?code=A56DH1Af" target="_blank" rel="nofollow" class="retro-dial-btn">启动节点</a>
+    </div>
+  </header>
+
+  <main class="main-stage">
+    <section class="stage-hero">
+      <div class="radar-tag">
+        <span>●</span> CHRONO-ORBITAL DISPATCH 2026
+      </div>
+      <h1>时轨观察：全时序专网与AI智算加速前沿</h1>
+      <p class="lead-desc">
+        立足于中世纪复古未来空间机械哲学与微秒级通信时钟同步，追踪前沿算力互联、RDMA 零拷贝架构、AI 异常自愈系统及网络抗弱网纠错技术演进。
+      </p>
+    </section>
+
+    <div class="dispatch-grid">
+      <!-- Article 1: Product Article -->
+      <article class="dispatch-card">
+        <div class="card-meta-row">
+          <span class="card-topic-pill">基准测速白皮书</span>
+          <span>1,160 字 · 6 分钟</span>
+        </div>
+        <h2 class="card-title-h2">
+          <a href="mesl-cloud-zero-loss-telemetry-report.html">全时序调度下的零丢包奇迹：MESL Cloud机场微秒级网络实测白皮书</a>
+        </h2>
+        <p class="card-summary">
+          深度实测 MESL Cloud 机场全专线矩阵的时钟抖动、丢包控制表现、AI 生产力大模型无缝响应及全平台无损多端协同能力。
+        </p>
+        <a href="mesl-cloud-zero-loss-telemetry-report.html" class="card-action-link">查看实测报告 &rarr;</a>
+      </article>
+
+      <!-- Article 2 -->
+      <article class="dispatch-card">
+        <div class="card-meta-row">
+          <span class="card-topic-pill">时钟协议演进</span>
+          <span>1,080 字 · 5 分钟</span>
+        </div>
+        <h2 class="card-title-h2">
+          <a href="ptp-clock-synchronization-in-cloud-computing.html">从NTP到PTP精准时间协议：纳秒级时间同步如何改变现代分布式云网络</a>
+        </h2>
+        <p class="card-summary">
+          为什么普通 NTP 协议已无法满足现代数据中心？硬件时间戳与 IEEE 1588 PTP 协议如何从物理层消弭分布式系统的通讯等待。
+        </p>
+        <a href="ptp-clock-synchronization-in-cloud-computing.html" class="card-action-link">查看实测报告 &rarr;</a>
+      </article>
+
+      <!-- Article 3 -->
+      <article class="dispatch-card">
+        <div class="card-meta-row">
+          <span class="card-topic-pill">AI算力互联</span>
+          <span>1,140 字 · 6 分钟</span>
+        </div>
+        <h2 class="card-title-h2">
+          <a href="distributed-ai-inference-network-acceleration.html">大模型分布式推理的通信瓶颈：算力集群跨域高速互联技术全景透视</a>
+        </h2>
+        <p class="card-summary">
+          大语言模型参数爆发式增长，跨节点通信时延成为算力最大的绊脚石。详解 All-Reduce 集合通信、参数并行与专网加速解决方案。
+        </p>
+        <a href="distributed-ai-inference-network-acceleration.html" class="card-action-link">查看实测报告 &rarr;</a>
+      </article>
+
+      <!-- Article 4 -->
+      <article class="dispatch-card">
+        <div class="card-meta-row">
+          <span class="card-topic-pill">内核旁路革新</span>
+          <span>1,110 字 · 5 分钟</span>
+        </div>
+        <h2 class="card-title-h2">
+          <a href="rdma-low-latency-data-exchange-overview.html">RDMA远程直接内存访问技术详解：彻底绕过操作系统的零拷贝加速革命</a>
+        </h2>
+        <p class="card-summary">
+          传统 TCP 协议栈的多次内存拷贝是如何拖垮吞吐的？深度解构 RoCE 与 InfiniBand 在超低延迟专线加速中的底层实现。
+        </p>
+        <a href="rdma-low-latency-data-exchange-overview.html" class="card-action-link">查看实测报告 &rarr;</a>
+      </article>
+
+      <!-- Article 5 -->
+      <article class="dispatch-card">
+        <div class="card-meta-row">
+          <span class="card-topic-pill">AI自愈网络</span>
+          <span>1,090 字 · 5 分钟</span>
+        </div>
+        <h2 class="card-title-h2">
+          <a href="autonomous-cloud-healing-architecture.html">秒级自愈网络系统如何设计？AI驱动的云端异常检测与拓扑动态重构</a>
+        </h2>
+        <p class="card-summary">
+          面对复杂突发的网络链路震荡，AI 预测算法如何比人工快数十倍完成故障预警与多路径流量自动旁路重构？
+        </p>
+        <a href="autonomous-cloud-healing-architecture.html" class="card-action-link">查看实测报告 &rarr;</a>
+      </article>
+
+      <!-- Article 6 -->
+      <article class="dispatch-card">
+        <div class="card-meta-row">
+          <span class="card-topic-pill">弱网编码算法</span>
+          <span>1,060 字 · 5 分钟</span>
+        </div>
+        <h2 class="card-title-h2">
+          <a href="next-gen-packet-loss-recovery-techniques.html">跨境弱网丢包率飙升到30%怎么破？前向纠错FEC与动态重传实战对比</a>
+        </h2>
+        <p class="card-summary">
+          在恶劣丢包信道中，为什么传统重传会导致网络雪崩？深入剖析 Reed-Solomon 纠错编码与自适应 FEC 算法的破局奇迹。
+        </p>
+        <a href="next-gen-packet-loss-recovery-techniques.html" class="card-action-link">查看实测报告 &rarr;</a>
+      </article>
+    </div>
+  </main>
+
+  <footer class="retro-strict-footer">
+    <div class="retro-footer-nav">
+      <a href="sitemap.html">网站地图</a>
+      <a href="about.html">关于我们</a>
+      <a href="terms.html">服务条款</a>
+      <a href="privacy.html">隐私政策</a>
+    </div>
+    <div class="retro-footer-copy">
+      &copy; 2026 MESL Cloud机场 (meslyuncloud.mom). 时轨观察 · 全时序专网追踪。
+    </div>
+  </footer>
+</body>
+</html>
