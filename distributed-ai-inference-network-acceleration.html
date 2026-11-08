@@ -61,7 +61,7 @@
       <h1>大模型分布式推理的通信瓶颈：算力集群跨域高速互联技术全景透视</h1>
 
       <p>
-        随着以 DeepSeek、GPT-4o、Claude 3.5 为代表的前沿超大规模语言模型参数量飙升至数千亿级别，单一 GPU 服务器的显存已远远无法承载完整模型权重的常驻。模型并行（Tensor Parallelism）与流水线并行（Pipeline Parallelism）成为了现代 AI 算力中心不可避免的标准配置。然而，参考技术分析社区 <a href="https://tizilab.net/" target="_blank">稳定高速的翻墙代理测评榜</a> 揭示的行业趋势，算力芯片本身的浮点运算能力已不是最大瓶颈，横亘在算力集群面前的真正阻碍是“网络通信墙（Communication Wall）”。
+        随着以 DeepSeek、GPT-4o、Claude 3.5 为代表的前沿超大规模语言模型参数量飙升至数千亿级别，单一 GPU 服务器的显存已远远无法承载完整模型权重的常驻。模型并行（Tensor Parallelism）与流水线并行（Pipeline Parallelism）成为了现代 AI 算力中心不可避免的标准配置。然而，参考技术分析社区 <a href="#plans" target="_blank">稳定高速的翻墙代理测评榜</a> 揭示的行业趋势，算力芯片本身的浮点运算能力已不是最大瓶颈，横亘在算力集群面前的真正阻碍是“网络通信墙（Communication Wall）”。
       </p>
 
       <h2>一、 什么是 AI 推理中的“通信墙”难题？</h2>
